@@ -1,0 +1,104 @@
+1. What is the purpose of an "if-else" statement in Java?
+   Answer: The "if-else" statement in Java is used for making decisions in your code. 
+   It allows us to execute different blocks of code based on whether a specified condition evaluates to true or false. 
+   If the condition is true, the code inside the "if" block is executed; otherwise, the code inside the "else" block is executed.
+
+2. Explain the difference between a "for" loop and a "while" loop in Java.
+   Answer: In Java, a "for" loop is typically used when we know in advance how many times the loop should run. 
+   It consists of an initialization, a condition, and an increment or decrement statement. 
+   On the other hand, a "while" loop is used when we want to repeat a block of code while a certain condition remains true. 
+   The condition is checked at the beginning of the loop, and if it's true, the code inside the loop is executed.
+
+3. What is a function in Java, and why is it used?
+   Answer: A function in Java, also known as a method, is a reusable block of code that performs a specific task. 
+   Functions are used to modularize code, improve code readability, and reduce redundancy. 
+   They allow us to define a set of instructions that can be called multiple times from different parts of your program.
+
+4. What is the ternary conditional operator in Java, and how does it work?
+   Answer: The ternary conditional operator (?:) in Java is a shorthand way to write an "if-else" statement that returns a value. 
+   It has three parts: a condition, a value to return if the condition is true, and a value to return if the condition is false. 
+   For example, int result = (x > y) ? x : y; assigns the value of x to result if x is greater than y, otherwise, it assigns the value of y.
+
+5. What is an infinite loop in Java, and why should you be cautious when using loops?
+   Answer: An infinite loop in Java is a loop that continues to execute indefinitely because its exit condition is never met. 
+   This can lead to the program becoming unresponsive and consuming excessive CPU resources. 
+
+6. Write a Java program that takes an integer as input and prints "Even" if it's even and "Odd" if it's odd.
+   Answer:
+   import java.util.Scanner;
+   public class EvenOdd {
+      public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter an integer: ");
+        int num = scanner.nextInt();
+        if (num % 2 == 0) {
+            System.out.println("Even");
+        } else {
+            System.out.println("Odd");
+        }
+        scanner.close();
+      }
+   }
+
+7. Write a Java program to print the numbers from 1 to 10 using a for loop.
+   Answer:
+   public class PrintNumbers {
+     public static void main(String[] args) {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(i);
+        }
+     }
+   }
+
+8. Create a Java function that takes two integers as input and returns their sum.
+   Answer:
+   public class AddNumbers {
+     public static int add(int a, int b) {
+        return a + b;
+     }
+
+     public static void main(String[] args) {
+        int result = add(5, 7);
+        System.out.println("Sum: " + result);
+     }
+   }
+
+9.  Write a Java program to calculate the factorial of a given number using a while loop.
+    Answer:
+    public class Factorial {
+       public static void main(String[] args) {
+        int n = 5;
+        int factorial = 1;
+        while (n > 0) {
+            factorial *= n;
+            n--;
+        }
+        System.out.println("Factorial: " + factorial);
+      }
+    }
+
+10. Write a Java program that takes a day number (1 to 7) as input and prints the corresponding day of the week
+    Answer:
+    import java.util.Scanner;
+    public class DayOfWeek {
+      public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a day number (1-7): ");
+        int dayNumber = scanner.nextInt();
+
+        String day;
+        switch (dayNumber) {
+            case 1: day = "Sunday"; break;
+            case 2: day = "Monday"; break;
+            case 3: day = "Tuesday"; break;
+            case 4: day = "Wednesday"; break;
+            case 5: day = "Thursday"; break;
+            case 6: day = "Friday"; break;
+            case 7: day = "Saturday"; break;
+            default: day = "Invalid day number";
+        }
+
+        System.out.println("The day is: " + day);
+        scanner.close();
+      }
+    }
