@@ -1,0 +1,83 @@
+1. What is a variable in Java?
+   Answer: A variable in Java is a named storage location that holds data, which can be of various types, such as integers, floating-point numbers, characters, and more. Variables allow you to store and manipulate data in a program.
+
+2. How do you declare a variable in Java?
+   Answer: To declare a variable in Java, we need to specify the data type followed by the variable name. For example: int number;
+
+3. What are the data types in Java?
+   Answer: In Java, data types are used to classify and specify the type of data that can be stored in a variable. 
+   In Java, data types are classified into two main categories: primitive data types and reference (non-primitive) data types.
+   Primitive Data Types: Primitive data types are the basic data types that are predefined in Java. They represent simple values and have fixed sizes in memory.
+   There are eight primitive data types in Java: int, double, char, boolean, byte, short, long, and float.
+   Non-Primitive Data Types: Reference data types, also known as non-primitive data types, are data types that do not directly store the data but instead store references (memory addresses) to objects or instances of classes.
+   Reference data types include classes, Strings, interfaces, arrays, and user-defined types.
+
+4. How do you initialise a variable in Java?
+   Answer: We can initialize a variable when you declare it by assigning it a value. For example: int count = 10;
+
+5. What is the default size and range of primitive data types?
+   Answer: byte: Default size: 8 bits (1 byte), Range: -128 to 127
+           short: Default size: 16 bits (2 bytes), Range: -32,768 to 32,767
+           int: Default size: 32 bits (4 bytes), Range: -2^31 to 2^31 - 1
+           long: Default size: 64 bits (8 bytes), Range: -2^63 to 2^63 - 1
+           float: Default size: 32 bits (4 bytes), Range: 7 decimal digits of precision
+           double: Default size: 64 bits (8 bytes), Range: 15 decimal digits of precision
+           char: Default size: 16 bits (2 bytes), Represents a single Unicode character
+           boolean: Default size: 1 bit, Represents true or false values
+
+6. Write a Java program to calculate the area of a rectangle. Declare two integer variables length and width, and calculate the area by multiplying them.
+   Answer:
+   public class RectangleArea {
+      public static void main(String[] args) {
+        int length = 5;
+        int width = 3;
+        int area = length * width;
+        System.out.println("Area of the rectangle: " + area);
+      }
+    }
+7. Write a Java program to calculate the average of three decimal numbers. Declare three double variables and calculate the average.
+   Answer:
+   public class AverageCalculator {
+     public static void main(String[] args) {
+        double num1 = 4.5;
+        double num2 = 6.2;
+        double num3 = 7.8;
+        double average = (num1 + num2 + num3) / 3;
+        System.out.println("Average: " + average);
+      }
+    }
+8. Write a Java program to concatenate two strings and store the result in a new variable fullName.
+   Answer:
+   public class StringConcatenation {
+     public static void main(String[] args) {
+        String firstName = "John";
+        String lastName = "Doe";
+        String fullName = firstName + " " + lastName;
+        System.out.println("Full Name: " + fullName);
+      }
+    }
+9. Write a Java program to swap the values of two integer variables x and y without using a third variable.
+   Answer:
+   public class SwapVariables {
+     public static void main(String[] args) {
+        int x = 5;
+        int y = 10;
+        x = x + y;
+        y = x - y;
+        x = x - y;
+        System.out.println("After swapping: x = " + x + ", y = " + y);
+      }
+    }
+10. Write a Java program that converts a temperature in Fahrenheit to Celsius. Prompt the user to enter the temperature in Fahrenheit and display the equivalent temperature in Celsius.
+    Answer:
+    import java.util.Scanner;
+    public class FahrenheitToCelsius {
+      public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter temperature in Fahrenheit: ");
+        double fahrenheit = scanner.nextDouble();
+        double celsius = (fahrenheit - 32) * 5/9;
+        System.out.println("Temperature in Celsius: " + celsius);
+        scanner.close();
+      }
+    }
