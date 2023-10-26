@@ -1,0 +1,142 @@
+Question 1: What is Abstraction in Java?
+Answer: Abstraction in Java is the process of simplifying complex systems by modelling classes based on their essential features and hiding unnecessary details. 
+        It is achieved through abstract classes and interfaces.
+
+Question 2: What is the purpose of Encapsulation in Java?
+Answer: Encapsulation is a mechanism that binds the data (attributes) and the methods (functions) that manipulate the data into a single unit, known as a class. 
+        It helps in data hiding and controlling access to the class members.
+
+Question 3: What is Inheritance in Java?
+Answer: Inheritance is a mechanism in Java that allows one class (the subclass or derived class) to inherit properties and behaviours (fields and methods) from 
+        another class (the superclass or base class).
+
+Question 4: What is the purpose of the super keyword in Java?
+Answer: The super keyword is used to call a superclass constructor or access a superclass's members (fields or methods) when there is a name conflict between 
+        the superclass and subclass.
+
+Question 5: What is the difference between an abstract class and an interface in Java?
+Answer: An abstract class can have method implementations (concrete methods) in addition to abstract methods, while an interface can only declare 
+        method signatures (no method implementations). A class can implement multiple interfaces, but it can extend only one class (abstract or not).
+
+Question 6: Create an abstract class named "Shape" with an abstract method "calculateArea." Implement two subclasses, "Circle" and "Rectangle," 
+that calculates the area.
+Answer:
+abstract class Shape {
+    abstract double calculateArea();
+}
+
+class Circle extends Shape {
+    double radius;
+
+    Circle(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    double calculateArea() {
+        return Math.PI * radius * radius;
+    }
+}
+
+class Rectangle extends Shape {
+    double width, height;
+
+    Rectangle(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    @Override
+    double calculateArea() {
+        return width * height;
+    }
+}
+
+Question 7: Create a class "Student" with private fields for name and age. Implement getters and setters for these fields to encapsulate them.
+Answer:
+class Student {
+    private String name;
+    private int age;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+Question 8: Create a superclass "Vehicle" with fields for make and model. Create a subclass "Car" that inherits from "Vehicle" and adds a field for the number of doors.
+Answer:
+class Vehicle {
+    String make;
+    String model;
+
+    Vehicle(String make, String model) {
+        this.make = make;
+        this.model = model;
+    }
+}
+
+class Car extends Vehicle {
+    int numberOfDoors;
+
+    Car(String make, String model, int doors) {
+        super(make, model);
+        this.numberOfDoors = doors;
+    }
+
+Question 9: Create an interface "Bank" with methods "deposit" and "withdraw." Implement this interface in a class called "SavingsAccount."
+Answer:
+interface Bank {
+    void deposit(double amount);
+    void withdraw(double amount);
+}
+
+class SavingsAccount implements Bank {
+    private double balance;
+
+    @Override
+    public void deposit(double amount) {
+        balance += amount;
+    }
+
+    @Override
+    public void withdraw(double amount) {
+        if (balance >= amount) {
+            balance -= amount;
+        } else {
+            System.out.println("Insufficient funds");
+        }
+    }
+}
+
+Question 10: Create a class "Animal" with a method "eat." Create subclasses "Dog" and "Cat" that override the "eat" method.
+Answer:
+class Animal {
+    void eat() {
+        System.out.println("This animal is eating.");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void eat() {
+        System.out.println("The dog is eating dog food.");
+    }
+}
+
+class Cat extends Animal {
+    @Override
+    void eat() {
+        System.out.println("The cat is eating cat food.");
+    }
+}
