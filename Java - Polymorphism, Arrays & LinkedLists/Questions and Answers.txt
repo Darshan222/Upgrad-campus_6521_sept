@@ -1,0 +1,211 @@
+Question 1: Create a simple example demonstrating polymorphism in Java.
+Answer: 
+class Shape {
+    void draw() {
+        System.out.println("Drawing a shape");
+    }
+}
+
+class Circle extends Shape {
+    void draw() {
+        System.out.println("Drawing a circle");
+    }
+}
+
+public class PolymorphismExample {
+    public static void main(String[] args) {
+        Shape shape = new Circle(); // Upcasting
+        shape.draw(); // Calls the overridden method in Circle
+    }
+}
+
+Question 2: Write a Java program to find the sum of elements in an integer array.
+Answer:
+public class ArraySum {
+    public static void main(String[] args) {
+        int[] numbers = {1, 2, 3, 4, 5};
+        int sum = 0;
+
+        for (int num : numbers) {
+            sum += num;
+        }
+
+        System.out.println("Sum of elements: " + sum);
+    }
+}
+
+Question 3: Create an ArrayList of strings and remove all occurrences of a specific word.
+Answer:
+import java.util.ArrayList;
+
+public class ArrayListRemove {
+    public static void main(String[] args) {
+        ArrayList<String> words = new ArrayList<>();
+        words.add("apple");
+        words.add("banana");
+        words.add("apple");
+        words.add("cherry");
+
+        words.removeIf(word -> word.equals("apple"));
+
+        System.out.println(words);
+    }
+}
+
+Question 4: Write a Java program to reverse a linked list.
+Answer:
+import java.util.LinkedList;
+
+public class ReverseLinkedList {
+    public static void main(String[] args) {
+        LinkedList<Integer> list = new LinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+
+        LinkedList<Integer> reversedList = new LinkedList<>();
+        for (int i = list.size() - 1; i >= 0; i--) {
+            reversedList.add(list.get(i));
+        }
+
+        System.out.println("Original list: " + list);
+        System.out.println("Reversed list: " + reversedList);
+    }
+}
+
+Question 5: Create an example that demonstrates method overloading in Java.
+Answer:
+public class MethodOverloading {
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    double add(double a, double b) {
+        return a + b;
+    }
+
+    public static void main(String[] args) {
+        MethodOverloading calculator = new MethodOverloading();
+        System.out.println("Sum of integers: " + calculator.add(5, 7));
+        System.out.println("Sum of doubles: " + calculator.add(3.5, 2.2));
+    }
+}
+
+Question 6: Write a program to find the second largest element in an array of integers.
+Answer:
+public class SecondLargest {
+    public static void main(String[] args) {
+        int[] numbers = {5, 10, 3, 8, 1};
+        int max = Integer.MIN_VALUE;
+        int secondMax = Integer.MIN_VALUE;
+
+        for (int num : numbers) {
+            if (num > max) {
+                secondMax = max;
+                max = num;
+            } else if (num > secondMax && num != max) {
+                secondMax = num;
+            }
+        }
+
+        System.out.println("Second largest element: " + secondMax);
+    }
+}
+
+Question 7: Write a Java program to find the index of a specific element in an ArrayList.
+Answer:
+import java.util.ArrayList;
+
+public class ArrayListIndexOf {
+    public static void main(String[] args) {
+        ArrayList<String> fruits = new ArrayList<>();
+        fruits.add("apple");
+        fruits.add("banana");
+        fruits.add("cherry");
+
+        int index = fruits.indexOf("banana");
+        if (index != -1) {
+            System.out.println("Index of 'banana': " + index);
+        } else {
+            System.out.println("'banana' not found in the list.");
+        }
+    }
+}
+
+Question 8: Implement a Java program to insert an element at the beginning of a linked list.
+Answer:
+import java.util.LinkedList;
+
+public class LinkedListInsertFirst {
+    public static void main(String[] args) {
+        LinkedList<String> list = new LinkedList<>();
+        list.add("apple");
+        list.add("banana");
+
+        list.addFirst("cherry");
+
+        System.out.println("Updated list: " + list);
+    }
+}
+
+Question 9: Create an example of runtime polymorphism using an interface in Java.
+Answer:
+interface Shape {
+    void draw();
+}
+
+class Circle implements Shape {
+    public void draw() {
+        System.out.println("Drawing a circle");
+    }
+}
+
+class Rectangle implements Shape {
+    public void draw() {
+        System.out.println("Drawing a rectangle");
+    }
+}
+
+public class RuntimePolymorphismExample {
+    public static void main(String[] args) {
+        Shape shape1 = new Circle();
+        Shape shape2 = new Rectangle();
+
+        shape1.draw();
+        shape2.draw();
+    }
+}
+
+Question 10: Write a Java program to merge two sorted arrays into a single sorted array.
+Answer: 
+public class MergeSortedArrays {
+    public static void main(String[] args) {
+        int[] arr1 = {1, 3, 5};
+        int[] arr2 = {2, 4, 6};
+        int n1 = arr1.length;
+        int n2 = arr2.length;
+        int[] mergedArray = new int[n1 + n2];
+
+        int i = 0, j = 0, k = 0;
+        while (i < n1 && j < n2) {
+            if (arr1[i] < arr2[j]) {
+                mergedArray[k++] = arr1[i++];
+            } else {
+                mergedArray[k++] = arr2[j++];
+            }
+        }
+
+        while (i < n1) {
+            mergedArray[k++] = arr1[i++];
+        }
+
+        while (j < n2) {
+            mergedArray[k++] = arr2[j++];
+        }
+
+        System.out.print("Merged Array: ");
+        for (int num : mergedArray) {
+            System.out.print(num + " ");
+        }
+    }
+}
