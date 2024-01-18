@@ -1,0 +1,340 @@
+1. Graph Representation:
+Implement a simple graph representation using an adjacency matrix.
+class Graph {
+    int vertices;
+    int[][] adjacencyMatrix;
+
+    public Graph(int vertices) {
+        this.vertices = vertices;
+        this.adjacencyMatrix = new int[vertices][vertices];
+    }
+
+    public void addEdge(int source, int destination) {
+        adjacencyMatrix[source][destination] = 1;
+        adjacencyMatrix[destination][source] = 1;
+    }
+}
+2. Depth-First Search (DFS):
+Implement a depth-first search algorithm to traverse a graph.
+class DFS {
+    static void dfs(Graph graph, int start, boolean[] visited) {
+        System.out.print(start + " ");
+        visited[start] = true;
+
+        for (int i = 0; i < graph.vertices; i++) {
+            if (graph.adjacencyMatrix[start][i] == 1 && !visited[i]) {
+                dfs(graph, i, visited);
+            }
+        }
+    }
+}
+3. Breadth-First Search (BFS):
+Implement a breadth-first search algorithm to traverse a graph.
+import java.util.LinkedList;
+import java.util.Queue;
+
+class BFS {
+    static void bfs(Graph graph, int start, boolean[] visited) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(start);
+        visited[start] = true;
+
+        while (!queue.isEmpty()) {
+            int current = queue.poll();
+            System.out.print(current + " ");
+
+            for (int i = 0; i < graph.vertices; i++) {
+                if (graph.adjacencyMatrix[current][i] == 1 && !visited[i]) {
+                    queue.add(i);
+                    visited[i] = true;
+                }
+            }
+        }
+    }
+}
+4. Detect Cycle in a Directed Graph:
+Implement an algorithm to detect whether a directed graph contains a cycle.
+class CycleDetection {
+    static boolean isCyclic(Graph graph) {
+        boolean[] visited = new boolean[graph.vertices];
+        boolean[] recursionStack = new boolean[graph.vertices];
+
+        for (int i = 0; i < graph.vertices; i++) {
+            if (isCyclicUtil(graph, i, visited, recursionStack)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static boolean isCyclicUtil(Graph graph, int vertex, boolean[] visited, boolean[] recursionStack) {
+        if (!visited[vertex]) {
+            visited[vertex] = true;
+            recursionStack[vertex] = true;
+
+            for (int i = 0; i < graph.vertices; i++) {
+                if (graph.adjacencyMatrix[vertex][i] == 1) {
+                    if (!visited[i] && isCyclicUtil(graph, i, visited, recursionStack)) {
+                        return true;
+                    } else if (recursionStack[i]) {
+                        return true;
+                    }
+                }
+            }
+        }
+        recursionStack[vertex] = false;
+        return false;
+    }
+}
+5. Topological Sorting:
+Implement topological sorting for a directed acyclic graph (DAG).
+import java.util.Stack;
+
+class TopologicalSort {
+    static void topologicalSort(Graph graph) {
+        Stack<Integer> stack = new Stack<>();
+        boolean[] visited = new boolean[graph.vertices];
+
+        for (int i = 0; i < graph.vertices; i++) {
+            if (!visited[i]) {
+                topologicalSortUtil(graph, i, visited, stack);
+            }
+        }
+
+        while (!stack.isEmpty()) {
+            System.out.print(stack.pop() + " ");
+        }
+    }
+
+    static void topologicalSortUtil(Graph graph, int vertex, boolean[] visited, Stack<Integer> stack) {
+        visited[vertex] = true;
+
+        for (int i = 0; i < graph.vertices; i++) {
+            if (graph.adjacencyMatrix[vertex][i] == 1 && !visited[i]) {
+                topologicalSortUtil(graph, i, visited, stack);
+            }
+        }
+
+        stack.push(vertex);
+    }
+}
+6. Dijkstra's Algorithm:
+Implement Dijkstra's algorithm to find the shortest path in a weighted graph.
+import java.util.PriorityQueue;
+
+class Dijkstra {
+    static void dijkstra(Graph graph, int source) {
+        int[] distance = new int[graph.vertices];
+        boolean[] visited = new boolean[graph.vertices];
+
+        for (int i = 0; i < graph.vertices; i++) {
+            distance[i] = Integer.MAX_VALUE;
+        }
+
+        distance[source] = 0;
+
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>((a, b) -> distance[a] - distance[b]);
+        priorityQueue.add(source);
+
+        while (!priorityQueue.isEmpty()) {
+            int current = priorityQueue.poll();
+            visited[current] = true;
+
+            for (int i = 0; i < graph.vertices; i++) {
+                if (graph.adjacencyMatrix[current][i] != 0 && !visited[i]) {
+                    int newDistance = distance[current] + graph.adjacencyMatrix[current][i];
+                    if (newDistance < distance[i]) {
+                        distance[i] = newDistance;
+                        priorityQueue.add(i);
+                    }
+                }
+            }
+        }
+
+        // Print the distances from the source vertex
+        for (int i = 0; i < graph.vertices; i++) {
+            System.out.println("Distance from " + source + " to " + i + ": " + distance[i]);
+        }
+    }
+}
+7. Bellman-Ford Algorithm:
+Implement the Bellman-Ford algorithm to find the shortest path in a weighted graph with negative weights.
+class BellmanFord {
+    static void bellmanFord(Graph graph, int source) {
+        int[] distance = new int[graph.vertices];
+
+        for (int i = 0; i < graph.vertices; i++) {
+            distance[i] = Integer.MAX_VALUE;
+        }
+
+        distance[source] = 0;
+
+        for (int i = 0; i < graph.vertices - 1; i++) {
+            for (int u = 0; u < graph.vertices; u++) {
+                for (int v = 0; v < graph.vertices; v++) {
+                    if (graph.adjacencyMatrix[u][v] != 0 && distance[u] != Integer.MAX_VALUE
+                            && distance[u] + graph.adjacencyMatrix[u][v] < distance[v]) {
+                        distance[v] = distance[u] + graph.adjacencyMatrix[u][v];
+                    }
+                }
+            }
+        }
+
+        // Print the distances from the source vertex
+        for (int i = 0; i < graph.vertices; i++) {
+            System.out.println("Distance from " + source + " to " + i + ": " + distance[i]);
+        }
+    }
+}
+8. Minimum Spanning Tree (Prim's Algorithm):
+Implement Prim's algorithm to find the minimum spanning tree in a weighted, connected graph.
+import java.util.PriorityQueue;
+
+class Prim {
+    static void primMST(Graph graph) {
+        boolean[] inMST = new boolean[graph.vertices];
+        int[] key = new int[graph.vertices];
+
+        for (int i = 0; i < graph.vertices; i++) {
+            key[i] = Integer.MAX_VALUE;
+        }
+
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>((a, b) -> key[a] - key[b]);
+        key[0] = 0;
+        priorityQueue.add(0);
+
+        while (!priorityQueue.isEmpty()) {
+            int u = priorityQueue.poll();
+            inMST[u] = true;
+
+            for (int v = 0; v < graph.vertices; v++) {
+                if (graph.adjacencyMatrix[u][v] != 0 && !inMST[v] && graph.adjacencyMatrix[u][v] < key[v]) {
+                    key[v] = graph.adjacencyMatrix[u][v];
+                    priorityQueue.add(v);
+                }
+            }
+        }
+
+        // Print the edges of the minimum spanning tree
+        for (int i = 1; i < graph.vertices; i++) {
+            System.out.println("Edge: " + i + " - " + getParent(i, key));
+        }
+    }
+
+    static int getParent(int vertex, int[] parent) {
+        for (int i = 0; i < parent.length; i++) {
+            if (parent[i] == vertex) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+9. Floyd-Warshall Algorithm:
+Implement the Floyd-Warshall algorithm to find all pairs shortest paths in a weighted graph.
+class FloydWarshall {
+    static void floydWarshall(Graph graph) {
+        int[][] dist = new int[graph.vertices][graph.vertices];
+
+        for (int i = 0; i < graph.vertices; i++) {
+            for (int j = 0; j < graph.vertices; j++) {
+                dist[i][j] = graph.adjacencyMatrix[i][j];
+            }
+        }
+
+        for (int k = 0; k < graph.vertices; k++) {
+            for (int i = 0; i < graph.vertices; i++) {
+                for (int j = 0; j < graph.vertices; j++) {
+                    if (dist[i][k] != Integer.MAX_VALUE && dist[k][j] != Integer.MAX_VALUE
+                            && dist[i][k] + dist[k][j] < dist[i][j]) {
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                    }
+                }
+            }
+        }
+
+        // Print the shortest distances between all pairs of vertices
+        for (int i = 0; i < graph.vertices; i++) {
+            for (int j = 0; j < graph.vertices; j++) {
+                System.out.print(dist[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+10. Kruskal's Algorithm:
+Implement Kruskal's algorithm to find the minimum spanning tree in a weighted, connected graph.
+import java.util.Arrays;
+class Kruskal {
+    static class Edge implements Comparable<Edge> {
+        int source, destination, weight;
+
+        public Edge(int source, int destination, int weight) {
+            this.source = source;
+            this.destination = destination;
+            this.weight = weight;
+        }
+
+        @Override
+        public int compareTo(Edge compareEdge) {
+            return this.weight - compareEdge.weight;
+        }
+    }
+
+    static void kruskalMST(Graph graph) {
+        Edge[] edges = getEdges(graph);
+        Arrays.sort(edges);
+
+        int[] parent = new int[graph.vertices];
+        for (int i = 0; i < graph.vertices; i++) {
+            parent[i] = i;
+        }
+
+        Edge[] result = new Edge[graph.vertices - 1];
+        int resultIndex = 0;
+
+        for (int i = 0; i < edges.length && resultIndex < graph.vertices - 1; i++) {
+            Edge nextEdge = edges[i];
+            int x = find(parent, nextEdge.source);
+            int y = find(parent, nextEdge.destination);
+
+            if (x != y) {
+                result[resultIndex++] = nextEdge;
+                union(parent, x, y);
+            }
+        }
+
+        // Print the edges of the minimum spanning tree
+        for (int i = 0; i < resultIndex; i++) {
+            System.out.println("Edge: " + result[i].source + " - " + result[i].destination + " Weight: " + result[i].weight);
+        }
+    }
+
+    static Edge[] getEdges(Graph graph) {
+        Edge[] edges = new Edge[graph.vertices * graph.vertices];
+        int edgeIndex = 0;
+
+        for (int i = 0; i < graph.vertices; i++) {
+            for (int j = 0; j < graph.vertices; j++) {
+                if (graph.adjacencyMatrix[i][j] != 0) {
+                    edges[edgeIndex++] = new Edge(i, j, graph.adjacencyMatrix[i][j]);
+                }
+            }
+        }
+
+        return Arrays.copyOfRange(edges, 0, edgeIndex);
+    }
+
+    static int find(int[] parent, int i) {
+        if (parent[i] != i) {
+            parent[i] = find(parent, parent[i]);
+        }
+        return parent[i];
+    }
+
+    static void union(int[] parent, int x, int y) {
+        int rootX = find(parent, x);
+        int rootY = find(parent, y);
+        parent[rootX] = rootY;
+    }
+}

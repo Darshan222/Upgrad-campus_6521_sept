@@ -1,0 +1,274 @@
+Question 1:
+Problem: Implement a function to check if a binary tree is symmetric.
+Code:
+class TreeNode {
+    int val;
+    TreeNode left, right;
+    
+    public TreeNode(int value) {
+        val = value;
+        left = right = null;
+    }
+}
+
+public class SymmetricTree {
+    public static boolean isSymmetric(TreeNode root) {
+        return root == null || isMirror(root.left, root.right);
+    }
+
+    private static boolean isMirror(TreeNode left, TreeNode right) {
+        if (left == null && right == null) return true;
+        if (left == null || right == null) return false;
+
+        return (left.val == right.val)
+                && isMirror(left.left, right.right)
+                && isMirror(left.right, right.left);
+    }
+}
+Question 2:
+Problem: Implement a function to find the maximum depth of a binary tree.
+Code:
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    public TreeNode(int value) {
+        val = value;
+        left = right = null;
+    }
+}
+
+public class MaxDepthBinaryTree {
+    public static int maxDepth(TreeNode root) {
+        if (root == null) return 0;
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+    }
+}
+Question 3:
+Problem: Implement a function to perform an in-order traversal of a binary tree and return the list of nodes.
+Code:
+import java.util.ArrayList;
+import java.util.List;
+
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    public TreeNode(int value) {
+        val = value;
+        left = right = null;
+    }
+}
+
+public class InOrderTraversal {
+    public static List<Integer> inOrderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        inOrderHelper(root, result);
+        return result;
+    }
+
+    private static void inOrderHelper(TreeNode node, List<Integer> result) {
+        if (node == null) return;
+        inOrderHelper(node.left, result);
+        result.add(node.val);
+        inOrderHelper(node.right, result);
+    }
+}
+Question 4:
+Problem: Implement a function to check if a binary tree is a binary search tree (BST).
+Code:
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    public TreeNode(int value) {
+        val = value;
+        left = right = null;
+    }
+}
+
+public class ValidateBST {
+    public static boolean isValidBST(TreeNode root) {
+        return isValidBSTHelper(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    private static boolean isValidBSTHelper(TreeNode node, long min, long max) {
+        if (node == null) return true;
+        if (node.val <= min || node.val >= max) return false;
+        return isValidBSTHelper(node.left, min, node.val) && isValidBSTHelper(node.right, node.val, max);
+    }
+}
+Question 5:
+Problem: Implement a function to find the lowest common ancestor (LCA) of two nodes in a binary search tree.
+Code:
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    public TreeNode(int value) {
+        val = value;
+        left = right = null;
+    }
+}
+
+public class LowestCommonAncestorBST {
+    public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) return null;
+
+        if (p.val < root.val && q.val < root.val) {
+            return lowestCommonAncestor(root.left, p, q);
+        } else if (p.val > root.val && q.val > root.val) {
+            return lowestCommonAncestor(root.right, p, q);
+        } else {
+            return root;
+        }
+    }
+}
+Question 6:
+Problem: Given the root of a binary tree, invert the tree (mirror image).
+Code:
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    public TreeNode(int value) {
+        val = value;
+        left = right = null;
+    }
+}
+
+public class InvertBinaryTree {
+    public static TreeNode invertTree(TreeNode root) {
+        if (root == null) return null;
+
+        TreeNode temp = root.left;
+        root.left = invertTree(root.right);
+        root.right = invertTree(temp);
+
+        return root;
+    }
+}
+
+Question 7:
+Problem: Given the root of a binary tree, determine if it is a valid binary search tree.
+Code:
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    public TreeNode(int value) {
+        val = value;
+        left = right = null;
+    }
+}
+
+public class ValidateBinarySearchTree {
+    public static boolean isValidBST(TreeNode root) {
+        return isValidBSTHelper(root, null, null);
+    }
+
+    private static boolean isValidBSTHelper(TreeNode node, Integer lower, Integer upper) {
+        if (node == null) return true;
+        if ((lower != null && node.val <= lower) || (upper != null && node.val >= upper)) return false;
+
+        return isValidBSTHelper(node.left, lower, node.val) && isValidBSTHelper(node.right, node.val, upper);
+    }
+}
+Question 8:
+Problem: Given an array representing a level-order traversal of a binary tree, construct the binary tree.
+Code:
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    public TreeNode(int value) {
+        val = value;
+        left = right = null;
+    }
+}
+
+public class ConstructBinaryTreeFromLevelOrder {
+    public static TreeNode buildTree(int[] levelOrder) {
+        if (levelOrder.length == 0) return null;
+
+        TreeNode root = new TreeNode(levelOrder[0]);
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        int i = 1;
+        while (!queue.isEmpty() && i < levelOrder.length) {
+            TreeNode current = queue.poll();
+
+            if (levelOrder[i] != -1) {
+                current.left = new TreeNode(levelOrder[i]);
+                queue.add(current.left);
+            }
+            i++;
+
+            if (i < levelOrder.length && levelOrder[i] != -1) {
+                current.right = new TreeNode(levelOrder[i]);
+                queue.add(current.right);
+            }
+            i++;
+        }
+
+        return root;
+    }
+}
+
+Question 9:
+Problem: Given the root of a binary tree, determine if it is balanced.
+Code:
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    public TreeNode(int value) {
+        val = value;
+        left = right = null;
+    }
+}
+
+public class BalancedBinaryTree {
+    public static boolean isBalanced(TreeNode root) {
+        if (root == null) return true;
+
+        int leftHeight = getHeight(root.left);
+        int rightHeight = getHeight(root.right);
+
+        return Math.abs(leftHeight - rightHeight) <= 1 && isBalanced(root.left) && isBalanced(root.right);
+    }
+
+    private static int getHeight(TreeNode node) {
+        if (node == null) return 0;
+        return 1 + Math.max(getHeight(node.left), getHeight(node.right));
+    }
+}
+Question 10:
+Problem: Given the root of a binary search tree, find the kth smallest element.
+Code:
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    public TreeNode(int value) {
+        val = value;
+        left = right = null;
+    }
+}
+
+public class KthSmallestInBST {
+    public static int kthSmallest(TreeNode root, int k) {
+        List<Integer> inorderList = new ArrayList<>();
+        inorderTraversal(root, inorderList);
+        return inorderList.get(k - 1);
+    }
+
+    private static void inorderTraversal(TreeNode root, List<Integer> result) {
+        if (root == null) return;
+
+        inorderTraversal(root.left, result);
+        result.add(root.val);
+        inorderTraversal(root.right, result);
+    }
+}

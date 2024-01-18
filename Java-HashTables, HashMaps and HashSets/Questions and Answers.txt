@@ -1,0 +1,239 @@
+Question 1:
+Problem: Implement a function to find the first non-repeating character in a string.
+Code:
+import java.util.HashMap;
+
+public class FirstNonRepeatingCharacter {
+    public static char firstNonRepeatingChar(String s) {
+        HashMap<Character, Integer> charFrequency = new HashMap<>();
+
+        for (char c : s.toCharArray()) {
+            charFrequency.put(c, charFrequency.getOrDefault(c, 0) + 1);
+        }
+
+        for (char c : s.toCharArray()) {
+            if (charFrequency.get(c) == 1) {
+                return c;
+            }
+        }
+
+        return '\0'; // Return null character if no non-repeating character is found
+    }
+}
+Question 2:
+Problem: Implement a function to check if two strings are anagrams.
+Code:
+import java.util.HashMap;
+
+public class AnagramChecker {
+    public static boolean areAnagrams(String str1, String str2) {
+        if (str1.length() != str2.length()) {
+            return false;
+        }
+
+        HashMap<Character, Integer> charCount = new HashMap<>();
+
+        for (char c : str1.toCharArray()) {
+            charCount.put(c, charCount.getOrDefault(c, 0) + 1);
+        }
+
+        for (char c : str2.toCharArray()) {
+            if (!charCount.containsKey(c) || charCount.get(c) == 0) {
+                return false;
+            }
+            charCount.put(c, charCount.get(c) - 1);
+        }
+
+        return true;
+    }
+}
+Question 3:
+Problem: Given an array of integers, find the two numbers such that they add up to a specific target.
+Code:
+import java.util.HashMap;
+
+public class TwoSum {
+    public static int[] findTwoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> numMap = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (numMap.containsKey(complement)) {
+                return new int[]{numMap.get(complement), i};
+            }
+            numMap.put(nums[i], i);
+        }
+
+        return new int[]{-1, -1}; // Return an array indicating no solution
+    }
+}
+Question 4:
+Problem: Determine if a given array contains any duplicates.
+Code:
+import java.util.HashSet;
+
+public class ContainsDuplicates {
+    public static boolean containsDuplicate(int[] nums) {
+        HashSet<Integer> numSet = new HashSet<>();
+
+        for (int num : nums) {
+            if (!numSet.add(num)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+Question 5:
+Problem: Given an array of integers, find the length of the longest subarray with distinct elements.
+Code:
+import java.util.HashSet;
+
+public class LongestSubarrayWithDistinctElements {
+    public static int longestSubarrayLength(int[] nums) {
+        HashSet<Integer> uniqueSet = new HashSet<>();
+        int maxLength = 0, left = 0;
+
+        for (int right = 0; right < nums.length; right++) {
+            while (uniqueSet.contains(nums[right])) {
+                uniqueSet.remove(nums[left]);
+                left++;
+            }
+            uniqueSet.add(nums[right]);
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+
+        return maxLength;
+    }
+}
+Question 6:
+Problem: Given a string, find the length of the longest substring without repeating characters.
+Code:
+import java.util.HashMap;
+
+public class LongestSubstringWithoutRepeating {
+    public static int lengthOfLongestSubstring(String s) {
+        HashMap<Character, Integer> charIndexMap = new HashMap<>();
+        int maxLength = 0, left = 0;
+
+        for (int right = 0; right < s.length(); right++) {
+            if (charIndexMap.containsKey(s.charAt(right))) {
+                left = Math.max(charIndexMap.get(s.charAt(right)) + 1, left);
+            }
+            charIndexMap.put(s.charAt(right), right);
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+
+        return maxLength;
+    }
+}
+
+Question 7:
+Problem: Determine if a given string is a palindrome permutation (a permutation of a palindrome).
+Code:
+import java.util.HashMap;
+
+public class PalindromePermutation {
+    public static boolean isPalindromePermutation(String s) {
+        HashMap<Character, Integer> charCount = new HashMap<>();
+
+        for (char c : s.toCharArray()) {
+            if (c != ' ') {
+                charCount.put(c, charCount.getOrDefault(c, 0) + 1);
+            }
+        }
+
+        int oddCount = 0;
+        for (int count : charCount.values()) {
+            if (count % 2 != 0) {
+                oddCount++;
+            }
+        }
+
+        return oddCount <= 1;
+    }
+}
+Question 8:
+Problem: Implement a function to find the intersection of two arrays.
+Code:
+import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
+
+public class IntersectionOfArrays {
+    public static int[] intersection(int[] nums1, int[] nums2) {
+        HashSet<Integer> set1 = new HashSet<>();
+        HashSet<Integer> set2 = new HashSet<>();
+        List<Integer> result = new ArrayList<>();
+
+        for (int num : nums1) {
+            set1.add(num);
+        }
+
+        for (int num : nums2) {
+            if (set1.contains(num) && !set2.contains(num)) {
+                result.add(num);
+                set2.add(num);
+            }
+        }
+
+        return result.stream().mapToInt(Integer::intValue).toArray();
+    }
+}
+Question 9:
+Problem: Given two arrays, write a function to compute their intersection.
+Code:
+import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ArrayIntersection {
+    public static int[] intersect(int[] nums1, int[] nums2) {
+        HashSet<Integer> set1 = new HashSet<>();
+        HashSet<Integer> intersectionSet = new HashSet<>();
+        List<Integer> result = new ArrayList<>();
+
+        for (int num : nums1) {
+            set1.add(num);
+        }
+
+        for (int num : nums2) {
+            if (set1.contains(num)) {
+                intersectionSet.add(num);
+            }
+        }
+
+        for (int num : intersectionSet) {
+            result.add(num);
+        }
+
+        return result.stream().mapToInt(Integer::intValue).toArray();
+    }
+}
+Question 10:
+Problem: Given a list of integers, find all unique subsets.
+Code:
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+
+public class UniqueSubsets {
+    public static List<List<Integer>> findSubsets(int[] nums) {
+        Arrays.sort(nums);
+        HashSet<List<Integer>> uniqueSubsets = new HashSet<>();
+        generateSubsets(nums, 0, new ArrayList<>(), uniqueSubsets);
+        return new ArrayList<>(uniqueSubsets);
+    }
+
+    private static void generateSubsets(int[] nums, int index, List<Integer> currentSubset, HashSet<List<Integer>> uniqueSubsets) {
+        uniqueSubsets.add(new ArrayList<>(currentSubset));
+
+        for (int i = index; i < nums.length; i++) {
+            currentSubset.add(nums[i]);
+            generateSubsets(nums, i + 1, currentSubset, uniqueSubsets);
+            currentSubset.remove(currentSubset.size() - 1);
+        }
+    }
+}

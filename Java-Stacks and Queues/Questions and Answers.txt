@@ -1,0 +1,308 @@
+Question 1:
+Problem: Implement a stack using an array and provide functions for push, pop, and isEmpty.
+Code:
+public class StackUsingArray {
+    private int maxSize;
+    private int[] stackArray;
+    private int top;
+
+    public StackUsingArray(int size) {
+        maxSize = size;
+        stackArray = new int[maxSize];
+        top = -1;
+    }
+
+    public void push(int value) {
+        if (top < maxSize - 1) {
+            stackArray[++top] = value;
+        } else {
+            System.out.println("Stack overflow");
+        }
+    }
+
+    public int pop() {
+        if (top >= 0) {
+            return stackArray[top--];
+        } else {
+            System.out.println("Stack underflow");
+            return -1; // Or throw an exception
+        }
+    }
+
+    public boolean isEmpty() {
+        return top == -1;
+    }
+}
+Question 2:
+Problem: Implement a queue using two stacks.
+Code:
+import java.util.Stack;
+
+public class QueueUsingStacks {
+    private Stack<Integer> stack1 = new Stack<>();
+    private Stack<Integer> stack2 = new Stack<>();
+
+    public void enqueue(int value) {
+        stack1.push(value);
+    }
+
+    public int dequeue() {
+        if (stack2.isEmpty()) {
+            if (stack1.isEmpty()) {
+                System.out.println("Queue is empty");
+                return -1; // Or throw an exception
+            }
+            while (!stack1.isEmpty()) {
+                stack2.push(stack1.pop());
+            }
+        }
+        return stack2.pop();
+    }
+
+    public boolean isEmpty() {
+        return stack1.isEmpty() && stack2.isEmpty();
+    }
+}
+Question 3:
+Problem: Implement a function to check if a given string of parentheses is balanced. (e.g., "{[()]}")
+Code:
+public class BalancedParentheses {
+    public static boolean isBalanced(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '[' || c == '{') {
+                stack.push(c);
+            } else if (c == ')' && !stack.isEmpty() && stack.peek() == '(') {
+                stack.pop();
+            } else if (c == ']' && !stack.isEmpty() && stack.peek() == '[') {
+                stack.pop();
+            } else if (c == '}' && !stack.isEmpty() && stack.peek() == '{') {
+                stack.pop();
+            } else {
+                return false;
+            }
+        }
+        return stack.isEmpty();
+    }
+}
+Question 4:
+Problem: Implement a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+Code:
+import java.util.Stack;
+
+public class MinStack {
+    private Stack<Integer> stack = new Stack<>();
+    private Stack<Integer> minStack = new Stack<>();
+
+    public void push(int value) {
+        stack.push(value);
+        if (minStack.isEmpty() || value <= minStack.peek()) {
+            minStack.push(value);
+        }
+    }
+
+    public void pop() {
+        if (!stack.isEmpty()) {
+            if (stack.pop().equals(minStack.peek())) {
+                minStack.pop();
+            }
+        }
+    }
+
+    public int top() {
+        return stack.peek();
+    }
+
+    public int getMin() {
+        return minStack.peek();
+    }
+}
+Question 5:
+Problem: Implement a circular queue using an array with functions for enqueue and dequeue.
+Code:
+public class CircularQueue {
+    private int maxSize;
+    private int[] queueArray;
+    private int front, rear;
+
+    public CircularQueue(int size) {
+        maxSize = size;
+        queueArray = new int[maxSize];
+        front = rear = -1;
+    }
+
+    public void enqueue(int value) {
+        if ((rear + 1) % maxSize == front) {
+            System.out.println("Queue is full");
+        } else if (isEmpty()) {
+            front = rear = 0;
+            queueArray[rear] = value;
+        } else {
+            rear = (rear + 1) % maxSize;
+            queueArray[rear] = value;
+        }
+    }
+
+    public int dequeue() {
+        int value = -1;
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+        } else {
+            value = queueArray[front];
+            if (front == rear) {
+                front = rear = -1;
+            } else {
+                front = (front + 1) % maxSize;
+            }
+        }
+        return value;
+    }
+
+    public boolean isEmpty() {
+        return front == -1 && rear == -1;
+    }
+}
+Question 6:
+Problem: Design a stack that supports push, pop, top, and retrieving the maximum element in constant time.
+Code:
+import java.util.Stack;
+
+public class MaxStack {
+    private Stack<Integer> stack = new Stack<>();
+    private Stack<Integer> maxStack = new Stack<>();
+
+    public void push(int value) {
+        stack.push(value);
+        if (maxStack.isEmpty() || value >= maxStack.peek()) {
+            maxStack.push(value);
+        }
+    }
+
+    public void pop() {
+        if (!stack.isEmpty()) {
+            if (stack.pop().equals(maxStack.peek())) {
+                maxStack.pop();
+            }
+        }
+    }
+
+    public int top() {
+        return stack.peek();
+    }
+
+    public int getMax() {
+        return maxStack.peek();
+    }
+}
+Question 7:
+Problem: Implement a function to reverse the order of elements in a stack.
+Code:
+import java.util.Stack;
+
+public class ReverseStack {
+    public static void reverseStack(Stack<Integer> stack) {
+        if (stack.isEmpty()) {
+            return;
+        }
+
+        int temp = stack.pop();
+        reverseStack(stack);
+        insertAtBottom(stack, temp);
+    }
+
+    private static void insertAtBottom(Stack<Integer> stack, int value) {
+        if (stack.isEmpty()) {
+            stack.push(value);
+            return;
+        }
+
+        int temp = stack.pop();
+        insertAtBottom(stack, value);
+        stack.push(temp);
+    }
+}
+Question 8:
+Problem: Implement a function to sort a stack using only a temporary stack.
+Code:
+import java.util.Stack;
+
+public class SortStack {
+    public static void sortStack(Stack<Integer> stack) {
+        Stack<Integer> tempStack = new Stack<>();
+
+        while (!stack.isEmpty()) {
+            int temp = stack.pop();
+
+            while (!tempStack.isEmpty() && tempStack.peek() > temp) {
+                stack.push(tempStack.pop());
+            }
+
+            tempStack.push(temp);
+        }
+
+        while (!tempStack.isEmpty()) {
+            stack.push(tempStack.pop());
+        }
+    }
+}
+Question 9:
+Problem: Implement a queue using two stacks, ensuring constant time for enqueue and dequeue operations.
+Code:
+import java.util.Stack;
+
+public class QueueUsingTwoStacks {
+    private Stack<Integer> stack1 = new Stack<>();
+    private Stack<Integer> stack2 = new Stack<>();
+
+    public void enqueue(int value) {
+        stack1.push(value);
+    }
+
+    public int dequeue() {
+        if (stack2.isEmpty()) {
+            if (stack1.isEmpty()) {
+                System.out.println("Queue is empty");
+                return -1; // Or throw an exception
+            }
+            while (!stack1.isEmpty()) {
+                stack2.push(stack1.pop());
+            }
+        }
+        return stack2.pop();
+    }
+}
+Question 10:
+Problem: Implement a function to evaluate a postfix expression.
+Code:
+import java.util.Stack;
+
+public class PostfixEvaluator {
+    public static int evaluatePostfix(String expression) {
+        Stack<Integer> stack = new Stack<>();
+
+        for (char c : expression.toCharArray()) {
+            if (Character.isDigit(c)) {
+                stack.push(Character.getNumericValue(c));
+            } else {
+                int operand2 = stack.pop();
+                int operand1 = stack.pop();
+                switch (c) {
+                    case '+':
+                        stack.push(operand1 + operand2);
+                        break;
+                    case '-':
+                        stack.push(operand1 - operand2);
+                        break;
+                    case '*':
+                        stack.push(operand1 * operand2);
+                        break;
+                    case '/':
+                        stack.push(operand1 / operand2);
+                        break;
+                }
+            }
+        }
+
+        return stack.pop();
+    }
+}
